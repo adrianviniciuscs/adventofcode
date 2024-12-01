@@ -1,33 +1,25 @@
-# open the file
-with open('input.input', 'r') as f:
+def calculate_total_distance(file_path):
+    left_list = []
+    right_list = []
 
-    def distance(a, b):
-        return b - a
+    # Read the input file and parse the data
+    with open(file_path, 'r') as f:
+        for line in f:
+            left, right = map(int, line.split())
+            left_list.append(left)
+            right_list.append(right)
 
-    def take_min(array):
-        return min(map(int, array))
+    # Sort both lists
+    left_list.sort()
+    right_list.sort()
 
-    def make_pairs(left, right) -> list:
-        pairs = []
-        while left and right:
-            min_left = take_min(left)
-            min_right = take_min(right)
-            pairs.append([min_left, min_right])
-            left.remove(str(min_left))
-            right.remove(str(min_right))
-        return pairs
+    # Calculate the total distance
+    total_distance = sum(abs(l - r) for l, r in zip(left_list, right_list))
 
-    left = []
-    right = []
+    return total_distance
 
-    for line in f:
-        numbers = line.split()
-        left.append(numbers[0])
-        right.append(numbers[1])
 
-    pairs = make_pairs(left, right)
-    print(pairs)
-
-    total_distance = sum(
-        distance(abs(pair[0]), abs(pair[1])) for pair in pairs)
-    print(total_distance)
+# Example usage
+file_path = 'input.input'
+total_distance = calculate_total_distance(file_path)
+print(f'Total distance: {total_distance}')
