@@ -12,6 +12,14 @@ def is_decreasing(arr):
     return True
 
 
+def is_safe_with_dampener(arr):
+    for i in range(len(arr)):
+        temp_arr = arr[:i] + arr[i+1:]
+        if is_increasing(temp_arr) or is_decreasing(temp_arr):
+            return True
+    return False
+
+
 with open('input') as f:
     lines = f.readlines()
     array = []
@@ -25,6 +33,9 @@ with open('input') as f:
         print(arr)
         if is_increasing(arr) or is_decreasing(arr):
             print("Safe")
+            safe += 1
+        elif is_safe_with_dampener(arr):
+            print("Safe with Dampener")
             safe += 1
         else:
             print("Unsafe")
